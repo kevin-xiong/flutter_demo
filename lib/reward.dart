@@ -72,9 +72,7 @@ class RewardWidget extends State<Reward>{
     // TODO: implement build
     Size mSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: Text("奖励"),
-      ),
+      backgroundColor: Colors.green,
       body: SafeArea(
           child:new Stack(
             children: <Widget>[
