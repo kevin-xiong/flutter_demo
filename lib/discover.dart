@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:carousel_slider/carousel_slider.dart';
-// import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-// import 'package:flutter/rendering.dart';
-// import 'package:flutter/services.dart';
+
+import 'package:url_launcher/url_launcher.dart';
 
 class Discover extends StatefulWidget{
   @override
@@ -14,6 +12,20 @@ class Discover extends StatefulWidget{
 }
  
 class DiscoverWidget extends State<Discover>{
+  _openMapApp() async {
+     const url = 'geo:52.32,4.917'; //APP提供的schema
+     if (await canLaunch(url)) {
+          await (launch(url)); //安卓中打开
+     } else {
+          //iOS中打开
+          const url = 'http://maps.apple.com/?ll=52.32,4.917';
+          if (await canLaunch(url)) {
+            await launch(url);
+          } else {
+            throw 'Could not launch $url';
+          }
+     }
+}
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
