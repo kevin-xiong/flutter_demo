@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # food
 
 A new Flutter project.
@@ -15,6 +14,3 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
-=======
-# flutter_demo
->>>>>>> d84d17b37d7d39c7031f92373173b4f24c0c45bd
