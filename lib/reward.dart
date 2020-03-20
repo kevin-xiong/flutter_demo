@@ -194,7 +194,7 @@ class RewardWidget extends State<Reward>{
                               onPressed: () {},
                             )
                           ),
-                          Container(
+                          Container( 
                             margin: EdgeInsets.fromLTRB(100, 0, 0, 0),
                             child: FlatButton(
                               color: Color(0xFFfc7946),
