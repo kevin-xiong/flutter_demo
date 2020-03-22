@@ -43,12 +43,12 @@ class DiscoverWidget extends State<Discover>{
       appBar: AppBar(
         title: Text("发现"), 
       ), 
-      body: WebviewScaffold(
-        url: "https://192.168.31.248:1234/download",
-        withZoom: true, //允许网页缩放
-      withLocalStorage: true,
-      withJavascript: true,
-      ),
+      // body: WebviewScaffold(
+      //   url: "https://192.168.31.248:1234/download",
+      //   withZoom: true, //允许网页缩放
+      // withLocalStorage: true,
+      // withJavascript: true,
+      // ),
     );
   }
   @override 

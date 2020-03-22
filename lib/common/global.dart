@@ -139,4 +139,5 @@ class Global {
     }
     return one;
   }
+  // static List<Widget> c = List<Widget>[];
 }

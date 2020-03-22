@@ -40,10 +40,10 @@ class MainWidget extends State<Main>{
         child: BottomNavigationBar( // 底部导航
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('首页')),
-            BottomNavigationBarItem(icon: Icon(Icons.money_off), title: Text('投资')),
+            BottomNavigationBarItem(icon: Icon(Icons.monetization_on), title: Text('投资')),
             BottomNavigationBarItem(icon: Icon(Icons.card_giftcard), title: Text('奖励')),
             BottomNavigationBarItem(icon: Icon(Icons.search), title: Text('发现')),
-            BottomNavigationBarItem(icon: Icon(Icons.people), title: Text('账户')),
+            BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('账户')),
           ],
           currentIndex: _index,
           fixedColor: Colors.blue,
