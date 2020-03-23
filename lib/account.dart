@@ -97,8 +97,7 @@ class AccountrWidget extends State<Account>{
                   width: mSize.width*0.9,
                   child: RoundedContainer(
                     height: mSize.height*0.5,
-                    child: SingleChildScrollView(
-                      child: Column(
+                    child: Column(
                         children: <Widget>[ 
                           Row(
                             children: <Widget>[
@@ -204,38 +203,80 @@ class AccountrWidget extends State<Account>{
                           ),
                           Row(
                             children: <Widget>[
-                              FlatButton(
-                                color: Color(0xFFfc7946),
-                                highlightColor: Colors.blue[700],
-                                colorBrightness: Brightness.dark,
-                                child:Text("取现"),
-                                shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                                onPressed: () {},
+                              Container(
+                                margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
+                                child:FlatButton(
+                                  color: Color(0xFFBDF0FD),
+                                  colorBrightness: Brightness.dark,
+                                  textColor:Color(0xFF0000DD),
+                                  child:Container(
+                                    alignment: Alignment.center,
+                                    width:100,
+                                    child:Text("取现")
+                                  ),
+                                  shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                                  onPressed: () {},
+                                ),
                               ),
-                              FlatButton(
-                                color: Color(0xFFfc7946),
-                                highlightColor: Colors.blue[700],
-                                colorBrightness: Brightness.dark,
-                                child:Text("充值"),
-                                shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                                onPressed: () {},
+                              Container(
+                                margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
+                                child:FlatButton(
+                                  color: Color(0xFFBDF0FD),
+                                  textColor:Color(0xFF0000DD),
+                                  colorBrightness: Brightness.dark,
+                                  child:Container(
+                                    alignment: Alignment.center,
+                                    width:100,
+                                    child:Text("充值")
+                                  ),
+                                  shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                                  onPressed: () {},
+                                ),
                               ),
                             ],
                           )
                         ],
                       )
-                    ) 
                   ),
                 )
               ),
-              RoundedContainer(
-                color: Colors.amber,
-                child: Text("续投计划"),
-              ),
-              RoundedContainer(
-                color: Colors.amber, 
-                child: Text("优惠券"),
+              Positioned(
+                top:mSize.height*0.65,
+                child: Column(
+                  children: <Widget>[
+                    RoundedContainer(
+                      margin: EdgeInsets.fromLTRB(mSize.width*0.05, 20, mSize.width*0.05, 0),
+                      height:60,
+                      width: mSize.width*0.9,
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                            child:Icon(Icons.crop,color: Colors.blue),
+                          ),
+                          Text("续投计划",style:TextStyle(fontSize: 18))
+                        ],
+                      )
+                    ),
+                    RoundedContainer(
+                      margin: EdgeInsets.fromLTRB(mSize.width*0.05, 20, mSize.width*0.05, 0),
+                      height:60,
+                      alignment: Alignment.center,
+                      width: mSize.width*0.9,
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.fromLTRB(20, 0, 20,0 ),
+                            child:Icon(Icons.confirmation_number,color: Colors.red,)
+                          ),
+                          Text("投资券",style:TextStyle(fontSize: 18))
+                        ],
+                      )
+                    )
+                  ]
+                ),
               )
+              
             ],
           )
       )

@@ -11,11 +11,17 @@ class FundCard  extends  StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.topCenter,
+      decoration:new BoxDecoration(
+          color: Color(0xFFf8f8f8),
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+      ),
+      alignment: Alignment.topLeft,
       margin:EdgeInsets.all(5.0),
+      padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
       width: width,
       height: height,
-      color: Color(0xFFefefef),
+      // color: Color(0xFFefefef),
       child: child
     );
   }

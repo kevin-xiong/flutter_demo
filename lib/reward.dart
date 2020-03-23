@@ -14,59 +14,59 @@ class RewardWidget extends State<Reward>{
   
   Future<int> _showModalBottomSheet() {
     Size mSize = MediaQuery.of(context).size;
-  return showModalBottomSheet<int>(
-    context: context,
-    builder: (BuildContext context) {
-      return Stack(
-      children: <Widget>[
-        Container(
-          height: 30.0,
-          width: double.infinity,
-          color: Colors.black54,
-        ),
-        RoundedContainer(
-          topLeft: 20,
-          topRight: 20,
-          bottomLeft: 0,
-          bottomRight: 0,
-          color: Colors.white,
-          height: 240,
-          child: Column(
-            children: <Widget>[
-              RoundedContainer(
-                color: Color(0xFFdddddd),
-                height:50,
-                width: mSize.width,
-                topLeft: 20,
-                topRight: 20,
-                bottomLeft: 0,
-                bottomRight: 0,
-                alignment: Alignment.center,
-                child: Text("邀请好友"),
-              ),
-              
-              Row(
-                children: <Widget>[
-                  RoundImage(path: "asset/wx.png"),
-                  RoundImage(path: "asset/dx.png"),
-                  RoundImage(path: "asset/wx.png"),
-                  RoundImage(path: "asset/wx.png"),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  RoundImage(path: "asset/wx.png"),
-                  RoundImage(path: "asset/wx.png"),
-                  RoundImage(path: "asset/dx.png"),
-                ],
-              )
-            ],
+    return showModalBottomSheet<int>(
+      context: context,
+      builder: (BuildContext context) {
+        return Stack(
+        children: <Widget>[
+          Container(
+            height: 30.0,
+            width: double.infinity,
+            color: Colors.black54,
           ),
-        )
-      ]);
-    },
-  );
-}
+          RoundedContainer(
+            topLeft: 20,
+            topRight: 20,
+            bottomLeft: 0,
+            bottomRight: 0,
+            color: Colors.white,
+            height: 240,
+            child: Column(
+              children: <Widget>[
+                RoundedContainer(
+                  color: Color(0xFFdddddd),
+                  height:50,
+                  width: mSize.width,
+                  topLeft: 20,
+                  topRight: 20,
+                  bottomLeft: 0,
+                  bottomRight: 0,
+                  alignment: Alignment.center,
+                  child: Text("邀请好友"),
+                ),
+                
+                Row(
+                  children: <Widget>[
+                    RoundImage(path: "asset/wx.png"),
+                    RoundImage(path: "asset/dx.png"),
+                    RoundImage(path: "asset/wx.png"),
+                    RoundImage(path: "asset/wx.png"),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    RoundImage(path: "asset/wx.png"),
+                    RoundImage(path: "asset/wx.png"),
+                    RoundImage(path: "asset/dx.png"),
+                  ],
+                )
+              ],
+            ),
+          )
+        ]);
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
