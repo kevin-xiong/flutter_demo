@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:food/page/Ocr.dart';
 class Discover extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
@@ -49,6 +50,25 @@ class DiscoverWidget extends State<Discover>{
       // withLocalStorage: true,
       // withJavascript: true,
       // ),
+      body:Column(
+        children: <Widget>[
+          Container(
+            child: FlatButton(
+              color: Color(0xFFfc7946),
+              highlightColor: Colors.blue[700],
+              colorBrightness: Brightness.dark,
+              child:Text("OCR"),
+              shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+              onPressed: () {
+                 Navigator.push(
+                    context,
+                    new MaterialPageRoute(builder: (context) => new Ocr()),
+                  );
+              },
+            ),
+          )
+        ],
+      )
     );
   }
   @override 
