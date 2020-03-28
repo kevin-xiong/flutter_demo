@@ -177,7 +177,7 @@ Widget build(BuildContext context) {
             ),
             Expanded(
               flex: 1,//flex用来设置当前可用空间的占优比
-              child: _takePictureLayout(),//拍照操作区域布局
+              child:_takePictureLayout(),//拍照操作区域布局
             ),
           ],),
           getPhotoPreview(),//图片预览布局

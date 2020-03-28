@@ -25,12 +25,12 @@ dependencies:
   flutter_screenutil: ^0.5.2 
   url_launcher : ^5.0.3
   flutter_webview_plugin: ^0.3.0
-  camera:
+  camera: 0.5.7
   path_provider: 0.4.1
   video_player: 0.10.0+4
   flutter_spinkit: ^3.0.0
   dio: ^2.1.0
-  flutter_image_compress: 0.3.1
+  flutter_image_compress: 0.6.5+1
   # shared_preferences: ^0.5.3+4
 
   # The following adds the Cupertino Icons font to your application.

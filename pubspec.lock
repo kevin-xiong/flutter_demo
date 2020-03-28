@@ -35,7 +35,7 @@ packages:
       name: camera
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.5.7+4"
+    version: "0.5.7"
   carousel_slider:
     dependency: "direct main"
     description:
@@ -117,7 +117,7 @@ packages:
       name: flutter_image_compress
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.3.1"
+    version: "0.6.5+1"
   flutter_screenutil:
     dependency: "direct main"
     description:
