@@ -46,6 +46,7 @@ class HomeWidget extends State<Home>{
   
   @override
   Widget build(BuildContext context) {
+    Size mSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         child:AppBar(
@@ -66,17 +67,17 @@ class HomeWidget extends State<Home>{
               ),
               Positioned(
                 top:20, 
-                left:0,
-                child: new Container(
+                left:mSize.width*0.1,
+                child: new Container( 
                   alignment: Alignment.topCenter,
-                  height:50,
+                  height:50, 
                   width:420,
                   child: Image.asset("asset/LU-Logo.png"), 
                 ),
               ),
               Positioned(
                 top:80.0, 
-                left:60,
+                left:mSize.width*0.1,
                 height:50,
                 width:280,
                 child: Row(
@@ -131,7 +132,7 @@ class HomeWidget extends State<Home>{
             ),
           ]),
           Container( 
-            margin: const EdgeInsets.fromLTRB(20,40,20,40),
+            margin: const EdgeInsets.fromLTRB(20,40,10,40),
             color: Colors.white,
             child: new StaggeredGridView.countBuilder(
               shrinkWrap:true,
@@ -191,11 +192,12 @@ class HomeWidget extends State<Home>{
                             height:1,
                             width:140,
                             color: Colors.black12,
-                            margin: EdgeInsets.fromLTRB(0,20, 0, 0),
+                            margin: EdgeInsets.fromLTRB(0,0, 0, 0),
                           ),
                           Container(
-                            margin: EdgeInsets.fromLTRB(0, 9, 0, 0),
+                            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                             alignment: Alignment.topLeft,
+                            height:20,
                             padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                             child:Text('${posts[index]['asset']}', 
                                 style:  TextStyle(fontSize:12,fontWeight:FontWeight.bold )

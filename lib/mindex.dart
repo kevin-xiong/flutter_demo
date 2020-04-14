@@ -4,8 +4,14 @@ import 'package:food/invest.dart';
 import 'package:food/reward.dart';
 import 'package:food/discover.dart';
 import 'package:food/account.dart';
+import 'package:camera/camera.dart';
 
 class Main extends StatefulWidget{
+  final CameraDescription camera;
+  const Main({
+    Key key,
+    @required this.camera,
+  }) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -21,12 +27,12 @@ class MainWidget extends State<Main>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: IndexedStack(
+      body: IndexedStack( 
         children: <Widget>[
           Home(),
           Invest(),
           Reward(),
-          Discover(),
+          Discover(camera:widget.camera),
           Account()
         ],
         index: _index,

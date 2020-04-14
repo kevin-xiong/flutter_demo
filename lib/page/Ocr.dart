@@ -9,6 +9,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'dart:convert' as convert;
 
 bool showProgressDialog = false;
 bool restart = false;
@@ -25,11 +26,14 @@ class IDCardIdentifyResult{
    static final String  issued_by= "issued_by";
 }
 class Ocr extends StatefulWidget{
+  final String pid;
+  final CameraDescription camera;
   Ocr({
     Key key,
-    @required this.pid,  // 接收一个text参数
+    @required this.pid,
+    @required this.camera,
   }) : super(key: key);
-  final String pid;
+  
   
   @override
   State<StatefulWidget> createState() {
@@ -40,6 +44,7 @@ class Ocr extends StatefulWidget{
 }
  
 class OcrWidget extends State<Ocr>{
+  
   var t = "ocr";
   CameraController controller;
   VideoPlayerController videoController;
@@ -47,7 +52,108 @@ class OcrWidget extends State<Ocr>{
   WidgetsBinding widgetsBinding;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String timestamp() => DateTime.now().millisecondsSinceEpoch.toString();
+  bool isDetecting = false;
+  @override
+  void initState() {
+    super.initState();
+    onNewCameraSelected(widget.camera);
+  }
+  void onNewCameraSelected(CameraDescription cameraDescription) async {
+    if (controller != null) {
+      await controller.dispose();
+    }
+    controller = CameraController(cameraDescription, ResolutionPreset.high);
 
+    // If the controller is updated then update the UI.
+    controller.addListener(() {
+      if (mounted) setState(() {});
+      if (controller.value.hasError) {
+        print('Camera error ${controller.value.errorDescription}');
+      }
+    });
+
+    try {
+      await controller.initialize();
+      controller.startImageStream((CameraImage img) async {
+        if (!isDetecting) {
+          var bytesList =img.planes.map((plane) {
+                  return  plane.bytes;
+                }).toList();
+          print(img.planes.length);
+          List<int> bytesList1 =img.planes[0].bytes;
+          List<int> bytesList2 =img.planes[1].bytes;
+          List<int> bytesList3 =img.planes[2].bytes;
+          // bytesList1.addAll(bytesList2);
+          // bytesList1.addAll(bytesList3);
+          // var buffer = new byteData.buffer;
+// var bytes = new ByteData.view(buffer);
+          // List<int> imbyte = List.from(byteData);
+          File fl = await writeJPG(bytesList1);
+          // getIDCardInfo(bytesList1);
+// ByteBuffer Y = ByteBuffer.wrap(bytesList.get(0));
+// ByteBuffer U = ByteBuffer.wrap(bytesList.get(1));
+// ByteBuffer V = ByteBuffer.wrap(bytesList.get(2));
+
+// int Yb = Y.remaining();
+// int Ub = U.remaining();
+// int Vb = V.remaining();
+
+// byte[] data = new byte[Yb + Ub + Vb];
+
+// Y.get(data, 0, Yb);
+// V.get(data, Yb, Vb);
+// U.get(data, Yb + Vb, Ub);
+
+// Bitmap bitmapRaw = Bitmap.createBitmap(imageWidth, imageHeight, Bitmap.Config.ARGB_8888);
+// Allocation bmData = renderScriptNV21ToRGBA888(
+//     mRegistrar.context(),
+//     imageWidth,
+//     imageHeight,
+//     data);
+// bmData.copyTo(bitmapRaw);
+          isDetecting = true;
+
+            // isDetecting = false;
+        }
+      });
+    } on CameraException catch (e) {
+      print(e);
+    }
+
+    if (mounted) {
+      setState(() {});
+    }
+  }
+  Future<File> writeJPG(List<int> sourceBytes) async{
+      try {
+          final File file = await localFile(await localPath());
+          file.writeAsBytesSync(sourceBytes);
+          print(file.path);
+          return file;
+      }
+      catch (err) {
+          print(err);
+      }
+  }
+  localFile(path) async {
+      return new File('$path/scantemp2.jpg');
+  }
+  localPath() async {
+      try {
+          var tempDir = await getTemporaryDirectory();
+          String tempPath = tempDir.path;
+
+          var appDocDir = await getApplicationDocumentsDirectory();
+          String appDocPath = appDocDir.path;
+          
+          print('临时目录: ' + tempPath);
+          print('文档目录: ' + appDocPath);
+          return appDocPath;
+      }
+      catch(err) {
+          print(err);
+      }
+  }
   Widget _cameraPreviewWidget() {
     if (controller == null || !controller.value.isInitialized) {
       return const Text(
@@ -114,6 +220,7 @@ Widget getPhotoPreview(){
       alignment: Alignment.bottomLeft,
     );
   }
+  
 }
 Widget getProgressDialog(){
   if(showProgressDialog){
@@ -162,6 +269,7 @@ Widget getRestartAlert(){
   }
 @override
 Widget build(BuildContext context) {
+  
   return Scaffold(
     key: _scaffoldKey,
     body: new Container(
@@ -169,7 +277,7 @@ Widget build(BuildContext context) {
         child:new Stack(children: <Widget>[
           new Column(children: <Widget>[
             Expanded(
-              flex: 3,//flex用来设置当前可用空间的占优比
+              flex: 5,//flex用来设置当前可用空间的占优比
               child:  new Stack(children: <Widget>[
                 _cameraPreviewWidget(),//相机视图
                 _cameraFloatImage(),//悬浮的身份证框图
@@ -187,31 +295,44 @@ Widget build(BuildContext context) {
       )
     );
   }
-  Future getIDCardInfo(File file) async {
+  Future getIDCardInfo(List<int> bytesCont) async {
+    print("getIDCardInfo");
+    print("file");
     showProgressDialog =true;//展示加载框
     Dio dio = new Dio();
     dio.options.contentType=ContentType.parse("multipart/form-data");
     var baseUrl = "https://api-cn.faceplusplus.com/cardpp/v1/ocridcard";
 
     final String targetPath = await getTempDir();
-    File compressFile =await getCompressImage(file, targetPath);
+    // File compressFile =await getCompressImage(file, targetPath);
+    print(bytesCont.length);
+    UploadFileInfo uimage = new UploadFileInfo.fromBytes(bytesCont, "image_file",contentType:ContentType('image', 'jpg'));
+    print(uimage.bytes);
     FormData formData = new FormData.from({
       "api_key": "TIpTmMSwPZjcw5fxSK9cYvdEwpn9f5Eo",
       "api_secret": "V_Fk1AYdK4-5kXJ7DDwndibG-B6UvFQI",
-      "image_file": new UploadFileInfo(compressFile, "image_file")
+      "image_file": uimage
     });
     Response<Map>  response;
+    // print(formData);
     try {
       response =await dio.post<Map>(baseUrl,data:formData);
     } catch (e) {
       print(e);
-      showProgressDialog =false;//隐藏加载框
-      setState(() {});
+      const timeout = const Duration(seconds: 3);
+      print('currentTime='+DateTime.now().toString());
+      Timer(timeout, () {
+        //到时回调
+        isDetecting = true;
+      });
+      // showProgressDialog =false;//隐藏加载框
+      // setState(() {});
     }
-    showProgressDialog =false;//隐藏加载框
-    setState(() {});
+    // showProgressDialog =false;//隐藏加载框
+    print(response);
+    // setState(() {});
     if(response != null){
-      print(response.data);
+      
       Map<String,Object> resultMap = response.data;
       List<dynamic> cards =resultMap['cards'];
       if(cards != null && !cards.isEmpty){
@@ -230,8 +351,8 @@ Widget build(BuildContext context) {
         setState(() {});
       }
     }else{
-      restart = true;//展示重新拍照的提示
-      setState(() {});
+      // restart = true;//展示重新拍照的提示
+      // setState(() {});
     }
   }
   void onTakePictureButtonPressed() {
@@ -245,7 +366,7 @@ Widget build(BuildContext context) {
           //showInSnackBar('Picture saved to $filePath');
           photoPath = filePath;
           setState(() { });
-          getIDCardInfo(File(filePath));
+          // getIDCardInfo(File(filePath));
         }
       }
     });
@@ -283,19 +404,17 @@ Widget build(BuildContext context) {
 }
 Future<String> getTempDir() async {
   var dir = await path_provider.getTemporaryDirectory();
-  var targetPath = dir.absolute.path + "/temp.png";
+  var targetPath = dir.absolute.path + "/temp.jpg";
   return targetPath;
 }
 Future<File> getCompressImage(File file, String targetPath) async {
   var path = file.absolute.path;
+  
   var result = await FlutterImageCompress.compressAndGetFile(
     path, targetPath,
     quality: 88,
     rotate: 180,
   );
-
-  print(file.lengthSync());
-  print(result.lengthSync());
   return result;
 
 }

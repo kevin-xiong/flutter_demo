@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:food/page/Ocr.dart';
+import 'package:camera/camera.dart';
 class Discover extends StatefulWidget{
+  final CameraDescription camera;
+  const Discover({
+    Key key,
+    @required this.camera,
+  }) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -39,6 +43,8 @@ class DiscoverWidget extends State<Discover>{
 
   @override
   Widget build(BuildContext context) {
+
+   
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
@@ -62,11 +68,11 @@ class DiscoverWidget extends State<Discover>{
               onPressed: () {
                  Navigator.push(
                     context,
-                    new MaterialPageRoute(builder: (context) => new Ocr()),
+                    new MaterialPageRoute(builder: (context) => new Ocr(camera:widget.camera)),
                   );
               },
             ),
-          )
+          ),
         ],
       )
     );

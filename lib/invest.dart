@@ -74,7 +74,6 @@ class InvestWidget extends State<Invest>{
                     );
                   }).toList(),
                   onTap: (index) {
-                    print(index);
                     setState(() {
                       list = Global.list[(index+1).toString()];
                     });
@@ -99,7 +98,6 @@ class InvestWidget extends State<Invest>{
                                 GestureDetector(
                                   onTap: (){ 
                                     setState(() {
-                                      print(item['title']);
                                          if(item['title'] == "投资期限"){
                                            a = (a == 100.0)?0.0:100.0;
                                          }
